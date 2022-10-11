@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <!-- <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+
+  <script src="index.js"></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAk5dhgr7Pz_st3ZkXd5eugIZpYOzCIWts",
+      authDomain: "bus-stops-2a227.firebaseapp.com",
+      projectId: "bus-stops-2a227",
+      storageBucket: "bus-stops-2a227.appspot.com",
+      messagingSenderId: "311843122851",
+      appId: "1:311843122851:web:3d63560ad537f9af735916"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
+  <style>
+    .dropdown {
+      margin: 20px;
+    }
+
+    .dropdown-menu {
+      /* max-height: 20rem; */
+      /* overflow-y: auto; */
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron w-10">
+      <h1>Bus Stops</h1>
+      <p>Search stop areas, bus stops, bus lists and bus schedules.</p>
+      <div id="loading" style="display: none;">
+        <h3 class="float-right"> Loading...</h3>
+        <div class="spinner-border float-right mr-2" role="status">
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- ================= -->
+
+  <div class="dropdown" style="size: 500px">
+
+    <div id="menu" class="dropdown-menu" style=' position:relative; margin: 20px;'>
+
+      <form class="px-4 py-2">
+        <input type="search" class="form-control" id="areas_input" placeholder="Search areas..." autofocus="autofocus"
+          onkeyup="filterFunction('Dropdown_areas', 'areas_input')"
+          onclick="filterFunction('Dropdown_areas', 'areas_input')">
+        <!-- <input type="submit" class="btn btn-info" value="Submit" for = "searchCoin" style = 'float:right; margin: 10px;'> -->
+        <button type=button class="btn btn-info" style='float:right; margin: 10px;'
+          onclick="get_bus_stops_names_from_area(document.getElementById('areas_input').value)"> Submit </button>
+      </form>
+      <div id="Dropdown_areas" class="dropdown-content"></div>
+    </div>
+  </div>
+  <!-- ================= -->
+  <div class="dropdown" style="size: 500px">
+    <div id="menu" class="dropdown-menu" style=' position:relative; margin: 20px'>
+      <form class="px-4 py-2">
+        <input type="search" class="form-control" id="bus_stops_input" placeholder="Search bus stops..."
+          autofocus="autofocus" onkeyup="filterFunction('Dropdown_bus_stops', 'bus_stops_input')"
+          onclick="filterFunction('Dropdown_bus_stops', 'bus_stops_input')">
+        <button type=button id="submitButton" class="btn btn-info" style='float:right; margin: 10px;'
+          onclick="get_bus_names_from_bus_stop_name(document.getElementById('bus_stops_input').value)">Submit</button>
+      </form>
+      <div id="Dropdown_bus_stops" class="dropdown-content">
+
+      </div>
+
+    </div>
+  </div>
+  <!-- ================= -->
+  <div class="card" style="position:relative; margin:20px; size:500px">
+    <div class="card-body">
+      <h4 class="card-title">Bus list</h4>
+      <div id="Dropdown_bus_names" class="card-body">
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= -->
+  <div class="Dropdown_stopBus_times" style="margin: 20px; bottom: 0; margin-top: 300px;">
+    <h2>Arrival times</h2>
+    <p id="bus">Bus: </p>
+    <p id="stop_name"> Bus Stop: </p>
+    <table class="table table-striped" id="arrival_suun_table">
+      <thead>
+        <tr>
+          <th>Arrival time</th>
+          <th>Direction</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
